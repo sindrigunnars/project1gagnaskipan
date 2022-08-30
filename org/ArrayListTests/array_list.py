@@ -1,6 +1,3 @@
-''''Hæ'''
-
-
 class IndexOutOfBounds(Exception):
     pass
 
@@ -16,7 +13,10 @@ class NotOrdered(Exception):
 class ArrayList:
     def __init__(self):
         # TODO: remove 'pass' and implement functionality
-        pass
+        # pass
+        self.cap = 4
+        self.arr = [0] * self.size
+        self.size = 0
 
     #Time complexity: O(n) - linear time in size of list
     def __str__(self):
@@ -37,7 +37,9 @@ class ArrayList:
     #Time complexity: O(1) - constant time
     def append(self, value):
         # TODO: remove 'pass' and implement functionality
-        pass
+        #pass
+        self.arr[self.size] = value
+        self.size += 1
 
     #Time complexity: O(1) - constant time
     def set_at(self, value, index):
