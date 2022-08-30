@@ -1,14 +1,22 @@
 class IndexOutOfBounds(Exception):
-    pass
+    def __init__(self, message = 'Index out of bounds!'):
+        self.message = message
+        super().__init__(self.message)
 
 class NotFound(Exception):
-    pass
+    def __init__(self, message = 'Value not found in list'):
+        self.message = message
+        super().__init__(self.message)
 
 class Empty(Exception):
-    pass
+    def __init__(self, message = 'The list is empty!'):
+        self.message = message
+        super().__init__(self.message)
 
 class NotOrdered(Exception):
-    pass
+    def __init__(self, message = 'The list is not ordered'):
+        self.message = message
+        super().__init__(self.message)
 
 class ArrayList:
     def __init__(self):
@@ -19,10 +27,12 @@ class ArrayList:
 
     #Time complexity: O(n) - linear time in size of list
     def __str__(self):
-        return_string = str(self.arr[0])
-        for i in range(1, self.size):
-            return_string += ', ' + str(self.arr[i])
-        return return_string
+        if self.size != 0:
+            return_string = str(self.arr[0])
+            for i in range(1, self.size):
+                return_string += ', ' + str(self.arr[i])
+            return return_string
+        return ''
 
     #Time complexity: O(n) - linear time in size of list
     def prepend(self, value):
@@ -42,7 +52,7 @@ class ArrayList:
         self.needs_resize()
         if index == 0:
             self.prepend(value)
-        elif index < self.size:
+        elif 0 < index < self.size:
             for i in range(self.size - 1, index-1, -1):
                 self.arr[i+1] = self.arr[i]
             self.arr[index] = value
@@ -50,7 +60,7 @@ class ArrayList:
         elif index == self.size:
             self.append(value)
         else:
-            print('wrong index!!!')
+            raise IndexOutOfBounds()
         self.ordered = False
 
     #Time complexity: O(1) - constant time
@@ -62,23 +72,34 @@ class ArrayList:
 
     #Time complexity: O(1) - constant time
     def set_at(self, value, index):
-        self.arr[index] = value
-        self.ordered = False
+        if 0 <= index < self.size:
+            self.arr[index] = value
+            self.ordered = False
+        else:
+            raise IndexOutOfBounds()
 
     #Time complexity: O(1) - constant time
     def get_first(self):
-        # TODO: remove 'pass' and implement functionality
-        pass
+        if self.size != 0:
+            return self.arr[0]
+        else:
+            raise Empty()
 
     #Time complexity: O(1) - constant time
     def get_at(self, index):
-        # TODO: remove 'pass' and implement functionality
-        pass
+        if 0 <= index < self.size:
+            return self.arr[index]
+        else:
+            raise IndexOutOfBounds()
+
+
 
     #Time complexity: O(1) - constant time
     def get_last(self):
-        # TODO: remove 'pass' and implement functionality
-        pass
+        if self.size != 0:
+            return self.arr[self.size-1]
+        else:
+            raise Empty()
 
     #Time complexity: O(n) - linear time in size of list
     def resize(self):
@@ -90,30 +111,75 @@ class ArrayList:
 
     #Time complexity: O(n) - linear time in size of list
     def remove_at(self, index):
-        # TODO: remove 'pass' and implement functionality
-        pass
+        if self.size != 0 and 0 <= index < self.size:
+            if index == self.size - 1:
+                self.arr[self.size-1] = 0
+            else:
+                for i in range(index, self.size - 1):
+                    self.arr[i] = self.arr[i+1]
+                self.arr[self.size - 1] = 0
+            self.size -= 1
+        else:
+            raise IndexOutOfBounds()
 
     #Time complexity: O(1) - constant time
     def clear(self):
         self.arr = [0] * self.cap
+        self.size = 0
         self.ordered = True
 
     #Time complexity: O(n) - linear time in size of list
     def insert_ordered(self, value):
-        # TODO: remove 'pass' and implement functionality
-        pass
+        if not self.ordered:
+            raise NotOrdered()
+        else:
+            if self.size == 0:
+                self.arr[0] = value
+                self.size += 1
+            elif self.arr[self.size - 1] <= value:
+                self.append(value)
+            elif self.arr[0] > value:
+                self.prepend(value)
+            else:
+                for i in range(self.size - 1):
+                    if self.arr[i] <= value < self.arr[i+1]:
+                        self.insert(value, i+1)
+                        break
+            self.ordered = True
 
     #Time complexity: O(n) - linear time in size of list
     #Time complexity: O(log n) - logarithmic time in size of list
     def find(self, value):
-        # TODO: remove 'pass' and implement functionality
-        pass
+        if self.size > 0:
+            if self.ordered:
+                return self.binary(value)
+            else:
+                return self.linear(value)
+
+
+    def binary(self, value):
+        high = self.size - 1
+        low = 0
+        while low != high:
+            mid = (low + high)//2
+            if self.arr[mid] == value:
+                return mid
+            elif self.arr[mid] > value:
+                high = mid - 1
+            elif self.arr[mid] < value:
+                low = mid + 1
+        raise NotFound()
+
+    def linear(self, value):
+        for i in range(self.size):
+            if self.arr[i] == value:
+                return i
+        raise NotFound()
 
     #Time complexity: O(n) - linear time in size of list
     def remove_value(self, value):
-        # TODO: remove 'pass' and implement functionality
-        pass
-
+        index = self.linear(value)
+        self.remove_at(index)
 
 if __name__ == "__main__":
     pass
@@ -122,4 +188,8 @@ if __name__ == "__main__":
     # and make sure they are at this indent level
 
     arr_lis = ArrayList()
-    print(str(arr_lis))
+    for i in range(4):
+        arr_lis.append(i)
+    print(arr_lis.arr, arr_lis.size)
+    arr_lis.remove_at(3)
+    print(arr_lis.arr, arr_lis.size)
