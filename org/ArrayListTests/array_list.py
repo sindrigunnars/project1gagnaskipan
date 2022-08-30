@@ -15,13 +15,15 @@ class ArrayList:
         # TODO: remove 'pass' and implement functionality
         # pass
         self.cap = 4
-        self.arr = [0] * self.size
+        self.arr = [0] * self.cap
         self.size = 0
 
     #Time complexity: O(n) - linear time in size of list
     def __str__(self):
         # TODO: remove 'pass' and implement functionality
-        return_string = ""
+        return_string = str(self.arr[0])
+        for i in range(1, self.size):
+            return_string += ', ' + str(self.arr[i])
         return return_string
 
     #Time complexity: O(n) - linear time in size of list
@@ -64,7 +66,12 @@ class ArrayList:
     #Time complexity: O(n) - linear time in size of list
     def resize(self):
         # TODO: remove 'pass' and implement functionality
-        pass
+        #pass
+        temp = [0] * self.cap * 2
+        for i in range(self.size):
+            temp[i] = self.arr[i]
+        self.cap *= 2
+        self.arr = temp
 
     #Time complexity: O(n) - linear time in size of list
     def remove_at(self, index):
