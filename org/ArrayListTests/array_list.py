@@ -158,6 +158,10 @@ class ArrayList:
 
 
     def binary(self, value):
+        """LARGE PROBLEMS WITH THE SEARCH, SOMETIMES
+        IT DOESNT FIND VALUES THAT ARE ON THE LIST, 
+        SOMETIMES IT FINDS THE VALUE AT WRONG INDEX,
+        NOT CONSISTAND WHETER LOWER OR HIGHER INDEX"""
         high = self.size - 1
         low = 0
         while low != high:
