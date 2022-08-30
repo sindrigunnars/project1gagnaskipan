@@ -17,6 +17,7 @@ class ArrayList:
         self.cap = 4
         self.arr = [0] * self.cap
         self.size = 0
+        self.ordered = True
 
     #Time complexity: O(n) - linear time in size of list
     def __str__(self):
@@ -29,11 +30,13 @@ class ArrayList:
     #Time complexity: O(n) - linear time in size of list
     def prepend(self, value):
         # TODO: remove 'pass' and implement functionality
+        self.ordered = False
         pass
 
     #Time complexity: O(n) - linear time in size of list
     def insert(self, value, index):
         # TODO: remove 'pass' and implement functionality
+        self.ordered = False
         pass
 
     #Time complexity: O(1) - constant time
@@ -42,10 +45,12 @@ class ArrayList:
         #pass
         self.arr[self.size] = value
         self.size += 1
+        self.ordered = False
 
     #Time complexity: O(1) - constant time
     def set_at(self, value, index):
         # TODO: remove 'pass' and implement functionality
+        self.ordered = False
         pass
 
     #Time complexity: O(1) - constant time
@@ -81,7 +86,9 @@ class ArrayList:
     #Time complexity: O(1) - constant time
     def clear(self):
         # TODO: remove 'pass' and implement functionality
-        pass
+        #pass
+        self.arr = [0] * self.cap
+        self.ordered = True
 
     #Time complexity: O(n) - linear time in size of list
     def insert_ordered(self, value):
