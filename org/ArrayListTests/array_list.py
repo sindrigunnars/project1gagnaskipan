@@ -92,8 +92,6 @@ class ArrayList:
         else:
             raise IndexOutOfBounds()
 
-
-
     #Time complexity: O(1) - constant time
     def get_last(self):
         if self.size != 0:
@@ -155,7 +153,6 @@ class ArrayList:
                 return self.binary(value)
             else:
                 return self.linear(value)
-
 
     def binary(self, value):
         """LARGE PROBLEMS WITH THE SEARCH, SOMETIMES
