@@ -42,7 +42,7 @@ class ArrayList:
         self.arr[0] = value
         self.size += 1
         self.ordered = False
-
+    #Time complexity: O(1)
     def needs_resize(self):
         if self.size == self.cap:
             self.resize()
@@ -154,23 +154,24 @@ class ArrayList:
             else:
                 return self.linear(value)
 
+    #Time complexity: O(log n) - logarithmic time in size of list
     def binary(self, value):
-        """LARGE PROBLEMS WITH THE SEARCH, SOMETIMES
-        IT DOESNT FIND VALUES THAT ARE ON THE LIST, 
-        SOMETIMES IT FINDS THE VALUE AT WRONG INDEX,
-        NOT CONSISTAND WHETER LOWER OR HIGHER INDEX"""
-        high = self.size - 1
-        low = 0
-        while low != high:
-            mid = (low + high)//2
+        high, low = self.size - 1, 0
+        while high - low > 1:
+            mid = round((low + high)/2)
             if self.arr[mid] == value:
                 return mid
             elif self.arr[mid] > value:
-                high = mid - 1
+                high = mid
             elif self.arr[mid] < value:
-                low = mid + 1
+                low = mid
+        if self.arr[high] == value:
+            return high
+        if self.arr[low] == value:
+            return low
         raise NotFound()
 
+    #Time complexity: O(n) - linear time in size of list
     def linear(self, value):
         for i in range(self.size):
             if self.arr[i] == value:
@@ -184,13 +185,3 @@ class ArrayList:
 
 if __name__ == "__main__":
     pass
-    # add your tests here or in a different file.
-    # Do not add them outside this if statement
-    # and make sure they are at this indent level
-
-    arr_lis = ArrayList()
-    for i in range(4):
-        arr_lis.append(i)
-    print(arr_lis.arr, arr_lis.size)
-    arr_lis.remove_at(3)
-    print(arr_lis.arr, arr_lis.size)
