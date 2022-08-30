@@ -1,3 +1,6 @@
+''''Hæ'''
+
+
 class IndexOutOfBounds(Exception):
     pass
 
