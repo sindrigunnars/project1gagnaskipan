@@ -25,10 +25,10 @@ def how_many(lis1, lis2):
 # REMEMBER EDGE CASES!
 
 def test_modulus(num1, num2):
-    print("The modulus of " + str(num1) + " and " + str(num2) + " is " + str(modulus(num1, num2)) + f'\t{modulus(num1, num2) == num1%num2}')
+    print(f'The modulus of {str(num1) } and {str(num2)} is {str(modulus(num1, num2))} \t{modulus(num1, num2) == num1%num2}')
 
 def test_how_many(lis1, lis2):
-    print(str(how_many(lis1, lis2)) + " of the items in " + str(lis1) + " are also in " + str(lis2) + f'\t{len([i for i in lis1 if i in lis2]) == how_many(lis1, lis2)}')
+    print(f'{str(how_many(lis1, lis2))} of the items in {str(lis1)} are also in {str(lis2)} \t{len([i for i in lis1 if i in lis2]) == how_many(lis1, lis2)}')
 
 def run_recursion_program():
 
