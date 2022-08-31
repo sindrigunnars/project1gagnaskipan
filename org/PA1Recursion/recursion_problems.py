@@ -1,22 +1,34 @@
 
-def modulus(a, b):  # ONLY NEEDS TO WORK FOR POSITIVE INTEGERS
-    #TODO: remove 'pass' and implement functionality
-    pass
-
+def modulus(a, b):
+    if a < b:
+        return a
+    if a == b:
+        return 0
+    return modulus(a-b, b)
+    
+def duplicate(lis, value):
+    if lis == []:
+        return False
+    if lis[0] == value:
+        return True
+    return duplicate(lis[1:], value)
 
 def how_many(lis1, lis2):
-    #TODO: remove 'pass' and implement functionality
-    pass
+    if lis1 == []:
+        return 0
+    if duplicate(lis2, lis1[0]):
+        return 1 + how_many(lis1[1:], lis2)
+    return how_many(lis1[1:], lis2)
 
 
 # FEEL FREE TO EDIT THE TESTS AND MAKE THEM BETTER
 # REMEMBER EDGE CASES!
 
 def test_modulus(num1, num2):
-    print("The modulus of " + str(num1) + " and " + str(num2) + " is " + str(modulus(num1, num2)))
+    print("The modulus of " + str(num1) + " and " + str(num2) + " is " + str(modulus(num1, num2)) + f'\t{modulus(num1, num2) == num1%num2}')
 
 def test_how_many(lis1, lis2):
-    print(str(how_many(lis1, lis2)) + " of the items in " + str(lis1) + " are also in " + str(lis2))
+    print(str(how_many(lis1, lis2)) + " of the items in " + str(lis1) + " are also in " + str(lis2) + f'\t{len([i for i in lis1 if i in lis2]) == how_many(lis1, lis2)}')
 
 def run_recursion_program():
 
