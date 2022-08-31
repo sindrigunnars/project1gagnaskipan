@@ -150,37 +150,56 @@ class ArrayList:
     def find(self, value):
         if self.size > 0:
             if self.ordered:
-                return self.binary(value)
+                return self.binary(value, 0, self.size -1)
             else:
-                return self.linear(value)
+                return self.linear(value, 0)
 
-    #Time complexity: O(log n) - logarithmic time in size of list
-    def binary(self, value):
-        high, low = self.size - 1, 0
-        while high - low > 1:
+    def binary(self, value, low, high):
+        if self.arr[low] <= value <= self.arr[high]:
             mid = round((low + high)/2)
             if self.arr[mid] == value:
                 return mid
-            elif self.arr[mid] > value:
-                high = mid
             elif self.arr[mid] < value:
-                low = mid
-        if self.arr[high] == value:
-            return high
-        if self.arr[low] == value:
-            return low
-        raise NotFound()
+                return self.binary(value, mid + 1, high)
+            elif self.arr[mid] > value:
+                return self.binary(value, low, mid - 1)
+        else:
+            raise NotFound()
+
+    def linear(self, value, n):
+        if self.arr[n] == value:
+            return n
+        if n == self.size - 1:
+            raise NotFound()
+        return self.linear(value, n+1)
+
+    #Time complexity: O(log n) - logarithmic time in size of list
+    # def binary(self, value):
+    #     high, low = self.size - 1, 0
+    #     while high - low > 1:
+    #         mid = round((low + high)/2)
+    #         if self.arr[mid] == value:
+    #             return mid
+    #         elif self.arr[mid] > value:
+    #             high = mid
+    #         elif self.arr[mid] < value:
+    #             low = mid
+    #     if self.arr[high] == value:
+    #         return high
+    #     if self.arr[low] == value:
+    #         return low
+    #     raise NotFound()
 
     #Time complexity: O(n) - linear time in size of list
-    def linear(self, value):
-        for i in range(self.size):
-            if self.arr[i] == value:
-                return i
-        raise NotFound()
+    # def linear(self, value):
+    #     for i in range(self.size):
+    #         if self.arr[i] == value:
+    #             return i
+    #     raise NotFound()
 
     #Time complexity: O(n) - linear time in size of list
     def remove_value(self, value):
-        index = self.linear(value)
+        index = self.linear(value, 0)
         self.remove_at(index)
 
 if __name__ == "__main__":
