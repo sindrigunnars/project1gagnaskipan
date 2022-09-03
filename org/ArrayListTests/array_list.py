@@ -42,6 +42,7 @@ class ArrayList:
         self.arr[0] = value
         self.size += 1
         self.ordered = False
+    
     #Time complexity: O(1)
     def needs_resize(self):
         if self.size == self.cap:
