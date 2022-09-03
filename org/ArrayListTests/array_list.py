@@ -1,22 +1,18 @@
 class IndexOutOfBounds(Exception):
     def __init__(self, message = 'Index out of bounds!'):
         self.message = message
-        super().__init__(self.message)
 
 class NotFound(Exception):
     def __init__(self, message = 'Value not found in list'):
         self.message = message
-        super().__init__(self.message)
 
 class Empty(Exception):
     def __init__(self, message = 'The list is empty!'):
         self.message = message
-        super().__init__(self.message)
 
 class NotOrdered(Exception):
     def __init__(self, message = 'The list is not ordered'):
         self.message = message
-        super().__init__(self.message)
 
 class ArrayList:
     def __init__(self):
@@ -154,7 +150,8 @@ class ArrayList:
                 return self.binary(value, 0, self.size -1)
             else:
                 return self.linear(value, 0)
-
+    
+    #Time complexity: O(log n) - logarithmic time in size of list
     def binary(self, value, low, high):
         if self.arr[low] <= value <= self.arr[high]:
             mid = round((low + high)/2)
@@ -166,7 +163,8 @@ class ArrayList:
                 return self.binary(value, low, mid - 1)
         else:
             raise NotFound()
-
+    
+    #Time complexity: O(n) - linear time in size of list
     def linear(self, value, n):
         if self.arr[n] == value:
             return n
