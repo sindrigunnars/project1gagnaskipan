@@ -6,17 +6,17 @@ def modulus(a, b):
         return 0
     return modulus(a-b, b)
     
-def duplicate(lis, value):
+def recurring(lis, value):
     if lis == []:
         return False
     if lis[0] == value:
         return True
-    return duplicate(lis[1:], value)
+    return recurring(lis[1:], value)
 
 def how_many(lis1, lis2):
     if lis1 == []:
         return 0
-    if duplicate(lis2, lis1[0]):
+    if recurring(lis2, lis1[0]):
         return 1 + how_many(lis1[1:], lis2)
     return how_many(lis1[1:], lis2)
 
