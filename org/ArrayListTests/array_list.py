@@ -30,23 +30,18 @@ class ArrayList:
             return return_string
         return ''
 
-    #Time complexity: O(n) - linear time in size of list
+    #Time complexity: O(n) - linear time in size of list 
     def prepend(self, value):
-        self.needs_resize()
+        self.resize()
         for i in range(self.size-1, -1, -1):
             self.arr[i+1] = self.arr[i]
         self.arr[0] = value
         self.size += 1
         self.ordered = False
-    
-    #Time complexity: O(1)
-    def needs_resize(self):
-        if self.size == self.cap:
-            self.resize()
 
     #Time complexity: O(n) - linear time in size of list
     def insert(self, value, index):
-        self.needs_resize()
+        self.resize()
         if index == 0:
             self.prepend(value)
         elif 0 < index < self.size:
@@ -62,7 +57,7 @@ class ArrayList:
 
     #Time complexity: O(1) - constant time
     def append(self, value):
-        self.needs_resize()
+        self.resize()
         self.arr[self.size] = value
         self.size += 1
         self.ordered = False
@@ -98,11 +93,12 @@ class ArrayList:
 
     #Time complexity: O(n) - linear time in size of list
     def resize(self):
-        temp = [0] * self.cap * 2
-        for i in range(self.size):
-            temp[i] = self.arr[i]
-        self.cap *= 2
-        self.arr = temp
+        if self.size == self.cap:
+            temp = [0] * self.cap * 2
+            for i in range(self.size):
+                temp[i] = self.arr[i]
+            self.cap *= 2
+            self.arr = temp
 
     #Time complexity: O(n) - linear time in size of list
     def remove_at(self, index):
